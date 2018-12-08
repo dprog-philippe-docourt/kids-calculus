@@ -37,15 +37,14 @@ optional arguments:
 Here are a few usage examples.
 
 ```
-python calculus.py --level 5 --format html -output calculus.html --title "Calculus for Simon" --count 20
+python calculus.py --level 5 --format html --output calculus.html --title "Calculus for Simon" --count 20
 ```
 Generates an HTML file named `calculus.html` in the current folder. The file will contain 20 expressions. The level of difficulty is 5/10, which is meant for a 6 to 8 years old kid.
 
 ```
-python calculus.py -l 3 --f text --title "Calculus for Simon" -c 5
+python calculus.py -l 3 --f text -c 5
 ```
-Prints 5 expressions of difficulty 3/10 to the standard output:
-
+Prints 5 expressions of difficulty 3/10 to the standard output with default title and subtitle:
 ```
 Calculus for Simon
 =====
@@ -58,6 +57,16 @@ Level 3/10, 2018-12-08
 0 + 6 =
 3 + 4 - 4 =
 4 + 6 + 0 =
+```
+
+```
+python calculus.py -l 10 --f text --title "" --subtitle "" -c 3
+```
+Prints 3 expressions of difficulty 10/10 to the standard output without any title or subtitle:
+```
+63 - 16 - 56 =
+58 + 26 - 67 * 2 - 3 + 9 =
+62 - 56 + 62 - 92 =
 ```
 
 ## API
