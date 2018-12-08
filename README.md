@@ -1,5 +1,5 @@
 # kids-calculus
-Kids Calculus is a generator of arithmetic expressions for kids. The generator provides expressions using the operators `+`, `-`, and `*`. The command line version provides the level of difficulties. Subtraction and then multiplication are introduced as the difficulty increases.
+Kids Calculus is a generator of arithmetic expressions for kids. The generator provides expressions using the operators `+`, `-`, and `*`. The command line version provides 10 levels of difficulties. Subtraction and then multiplication are introduced as the difficulty increases.
 
 ## Usage
 The `calculus.py` module is a python script that can be used as a command line tool for generating series of arithmetic expressions.
