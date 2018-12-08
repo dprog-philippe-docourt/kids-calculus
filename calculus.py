@@ -2,7 +2,7 @@
 This is the Kids Calculus module.
 
 Kids Calculus is a generator of arithmetic expressions for kids. The generator provides expressions using the
-operators `+`, `-`, and `*`. The command line version provides the level of difficulties. Subtraction and then
+operators `+`, `-`, and `*`. The command line version provides 10 levels of difficulties. Subtraction and then 
 multiplication are introduced as the difficulty increases.
 """
 
