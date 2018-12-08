@@ -67,8 +67,8 @@ class CalculusGenerator(object):
 
     def __init__(self, options, title=None, subtitle=None):
         self.options = options
-        self.title = title or 'Calculus'
-        self.subtitle = subtitle or str(datetime.date.today())
+        self.title = title if title is not None else 'Calculus'
+        self.subtitle = subtitle if subtitle is not None else str(datetime.date.today())
 
     def generate_expressions(self, count=10):
         if count < 1 or count > MAX_COUNT:
@@ -177,7 +177,7 @@ if __name__ == '__main__':
     app.add_argument('-s', '--subtitle', type=str, required=False, help="A custom subtitle for the generated content. A default subtitle is automatically generated, unless an explicit empty string is given.")
     args = app.parse_args()
 
-    subtitle = args.subtitle or 'Level %i/%i, %s' % (args.level, MAX_LEVEL, datetime.date.today())
+    subtitle = args.subtitle if args.subtitle is not None else 'Level %i/%i, %s' % (args.level, MAX_LEVEL, datetime.date.today())
     generator = CalculusGenerator(get_options_for_level(args.level), title=args.title, subtitle=subtitle)
 
     if args.output:
