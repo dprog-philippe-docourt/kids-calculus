@@ -2,7 +2,7 @@
 This is the Kids Calculus module.
 
 Kids Calculus is a generator of arithmetic expressions for kids. The generator provides expressions using the
-operators `+`, `-`, and `*`. The command line version provides 10 levels of difficulties. Subtraction and then 
+operators `+`, `-`, and `*`. The command line version provides 10 levels of difficulties. Subtraction and then
 multiplication are introduced as the difficulty increases.
 """
 
@@ -73,7 +73,7 @@ class CalculusGenerator(object):
     def generate_expressions(self, count=10):
         if count < 1 or count > MAX_COUNT:
             raise ValueError('Count must be within [1; %i].' % MAX_COUNT)
-        for i in range(0, count + 1):
+        for i in range(0, count):
             value = random.randint(0, self.options.max_number)
             calculus = str(value)
             operand_count = random.randint(self.options.min_operand_count - 1, self.options.max_operand_count - 1)
@@ -129,9 +129,9 @@ class CalculusGenerator(object):
 
     def print_calculus(self, stream=sys.stdout, count=10):
         if args.format == 'html':
-            generator.print_calculus_as_html(stream=stream, count=count)
+            self.print_calculus_as_html(stream=stream, count=count)
         else:
-            generator.print_calculus_as_plain_text(stream=stream, count=count)
+            self.print_calculus_as_plain_text(stream=stream, count=count)
 
 
 def get_options_for_level(level):
