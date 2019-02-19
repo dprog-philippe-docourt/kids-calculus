@@ -145,6 +145,8 @@ class CalculusGenerator(object):
     def print_calculus_as_html(self, stream=sys.stdout, count=10, interactive=False, include_header=True, include_footer=True):
         if include_header:
             self._print_html_header(stream)
+        if interactive:
+            stream.write('<form autocomplete="off">')
         for i, calculus in enumerate(self.generate_expressions(count)):
             if interactive:
                 stream.write(
@@ -157,6 +159,8 @@ class CalculusGenerator(object):
                         max_value=self.options.max_absolute_result))
             else:
                 stream.write('<h4 class="numbering">%d/%d</h4><p class="expression">%s</p>\n' % (i + 1, count, calculus))
+        if interactive:
+            stream.write('</form>')
         if include_footer:
             self._print_html_footer(stream)
 
