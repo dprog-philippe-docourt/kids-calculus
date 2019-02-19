@@ -39,10 +39,15 @@ Here are a few usage examples.
 ```
 python calculus.py --level 5 --format html --output calculus.html --title "Calculus for Simon" --count 20
 ```
-Generates an HTML file named `calculus.html` in the current folder. The file will contain 20 expressions. The level of difficulty is 5/10, which is meant for a 6 to 8 years old kid.
+Generates an HTML file named `calculus.html` in the current folder. This kind of HTML output is nice for printing a calculus page. The file will contain 20 expressions. The level of difficulty is 5/10, which is meant for a 6 to 8 years old kid.
 
 ```
-python calculus.py -l 3 --f text -c 5
+python calculus.py --level 3 --format interactive_html --output interactive_calculus.html --title "Calculus for Simon" --count 12
+```
+Generates an HTML file named `interactive_calculus.html` in the current folder. The file will contain 12 expressions of difficulty 3/10 presented as a series of interactive HTML forms. Each response turns green when the correct answer is given, or red when an erroneous answer is typed.
+
+```
+python calculus.py -l 3 -f text -c 5
 ```
 Prints 5 expressions of difficulty 3/10 to the standard output with default title and subtitle:
 ```
@@ -60,7 +65,7 @@ Level 3/10, 2018-12-08
 ```
 
 ```
-python calculus.py -l 10 --f text --title "" --subtitle "" -c 3
+python calculus.py -l 10 -f text --title "" --subtitle "" -c 3
 ```
 Prints 3 expressions of difficulty 10/10 to the standard output without any title or subtitle:
 ```
