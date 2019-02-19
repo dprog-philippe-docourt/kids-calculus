@@ -107,7 +107,7 @@ class CalculusGenerator(object):
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8"></meta>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <title>{0}</title>
         <style>
             .expression {{
@@ -140,7 +140,7 @@ class CalculusGenerator(object):
             stream.write('{0}\n-----\n\n'.format(self.subtitle))
 
     def _print_html_footer(self, stream):
-        stream.write('</body>\n</html>\n')
+        stream.write('\n</body>\n</html>\n')
 
     def print_calculus_as_html(self, stream=sys.stdout, count=10, interactive=False, include_header=True, include_footer=True):
         if include_header:
