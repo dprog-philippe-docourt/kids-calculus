@@ -63,7 +63,7 @@ class CalculusOptions(object):
 
 class CalculusGenerator(object):
     """A generator of random, simple arithmetic expressions."""
-    ALLOWED_FORMATS = ['html', 'text']
+    ALLOWED_FORMATS = ['interactive_html', 'html', 'text']
 
     def __init__(self, options, title=None, subtitle=None):
         self.options = options
@@ -73,7 +73,8 @@ class CalculusGenerator(object):
     def generate_expressions(self, count=10):
         if count < 1 or count > MAX_COUNT:
             raise ValueError('Count must be within [1; %i].' % MAX_COUNT)
-        for i in range(0, count):
+        expressions = set()
+        while len(expressions) < count:
             value = random.randint(0, self.options.max_number)
             calculus = str(value)
             operand_count = random.randint(self.options.min_operand_count - 1, self.options.max_operand_count - 1)
@@ -94,11 +95,39 @@ class CalculusGenerator(object):
                     continue
                 calculus = temp_calculus
                 op_i += 1
+            if calculus in expressions:
+                continue
+            else:
+                expressions.add(calculus)
             calculus += ' ='
             yield calculus
 
     def _print_html_header(self, stream):
-        stream.write('<!DOCTYPE html>\n<meta http-equiv="content-type" content="text/html; charset=utf-8"><title>{0}</title></meta>\n<html>\n<body>\n'.format(self.title))
+        stream.write("""\
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"></meta>
+        <title>{0}</title>
+        <style>
+            .expression {{
+                font-weight: bold;
+                padding-left: 3em;
+                padding-bottom: 1em;
+            }}
+            .numbering {{
+                font-style: italic;
+            }}
+            input:invalid:not(:focus):not(:placeholder-shown) {{
+                background: #FFCCFF;
+            }}
+            input:valid {{
+                background: #66FF99;
+            }}
+        </style>
+    </head>
+    <body>
+        """.format(self.title))
         if self.title:
             stream.write('<h1>{0}</h1>\n'.format(self.title))
         if self.subtitle:
@@ -113,11 +142,21 @@ class CalculusGenerator(object):
     def _print_html_footer(self, stream):
         stream.write('</body>\n</html>\n')
 
-    def print_calculus_as_html(self, stream=sys.stdout, count=10, include_header=True, include_footer=True):
+    def print_calculus_as_html(self, stream=sys.stdout, count=10, interactive=False, include_header=True, include_footer=True):
         if include_header:
             self._print_html_header(stream)
-        for calculus in self.generate_expressions(count):
-            stream.write('<p>%s</p>\n' % calculus)
+        for i, calculus in enumerate(self.generate_expressions(count)):
+            if interactive:
+                stream.write(
+                    '<h4 class="numbering">%(index)d/%(count)s</h4><div class="expression">%(expression)s&nbsp;<input size="4" placeholder="?" required pattern="%(solution)i" type="text" name="result_%(index)i" min="%(min_value)i" max="%(max_value)i"></div>\n' % dict(
+                        count=count,
+                        expression=calculus,
+                        solution=eval(calculus.rstrip(' =')),
+                        index=i + 1,
+                        min_value=-self.options.max_absolute_result if self.options.allows_negative_result else 0,
+                        max_value=self.options.max_absolute_result))
+            else:
+                stream.write('<h4 class="numbering">%d/%d</h4><p class="expression">%s</p>\n' % (i + 1, count, calculus))
         if include_footer:
             self._print_html_footer(stream)
 
@@ -129,7 +168,9 @@ class CalculusGenerator(object):
 
     def print_calculus(self, stream=sys.stdout, count=10):
         if args.format == 'html':
-            self.print_calculus_as_html(stream=stream, count=count)
+            self.print_calculus_as_html(stream=stream, count=count, interactive=False)
+        elif args.format == 'interactive_html':
+            self.print_calculus_as_html(stream=stream, count=count, interactive=True)
         else:
             self.print_calculus_as_plain_text(stream=stream, count=count)
 
