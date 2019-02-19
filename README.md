@@ -5,7 +5,8 @@ Kids Calculus is a generator of arithmetic expressions for kids. The generator p
 The `calculus.py` module is a python script that can be used as a command line tool for generating series of arithmetic expressions.
 ```
 usage: Kids Calculus [-h] [-l {1,2,3,4,5,6,7,8,9,10}] [-c COUNT]
-                     [-f {html,text}] [-o OUTPUT] [-t TITLE] [-s SUBTITLE]
+                     [-f {interactive_html,html,text}] [-o OUTPUT] [-t TITLE]
+                     [-s SUBTITLE]
 
 A generator of arithmetic expressions for kids.
 
@@ -18,7 +19,7 @@ optional arguments:
                         meant for 12 years old and more.
   -c COUNT, --count COUNT
                         The number of arithmetic expressions to generate.
-  -f {html,text}, --format {html,text}
+  -f {interactive_html,html,text}, --format {interactive_html,html,text}
                         The output format.
   -o OUTPUT, --output OUTPUT
                         The file path used to output the generated arithmetic
@@ -31,8 +32,7 @@ optional arguments:
                         A custom subtitle for the generated content. A default
                         subtitle is automatically generated, unless an
                         explicit empty string is given.
-
-```        
+```
 
 Here are a few usage examples.
 
